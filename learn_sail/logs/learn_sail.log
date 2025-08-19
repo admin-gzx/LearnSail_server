@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+"GET /?ide_webview_request_time=1755577817921 HTTP/1.1" 200 10664
+Not Found: /@vite/client
+"GET /@vite/client HTTP/1.1" 404 2117
+"GET /?ide_webview_request_time=1755577843019 HTTP/1.1" 200 10664
+Not Found: /@vite/client
+"GET /@vite/client HTTP/1.1" 404 2117
+D:\githubÏîÄ¿\LearnSail_server\learn_sail\learn_sail\settings.py changed, reloading.
+Watching for file changes with StatReloader
+"GET /?ide_webview_request_time=1755577996377 HTTP/1.1" 200 10664
+Not Found: /@vite/client
+"GET /@vite/client HTTP/1.1" 404 2117
