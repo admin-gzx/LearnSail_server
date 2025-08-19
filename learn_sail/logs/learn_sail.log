@@ -16,3 +16,7 @@ Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 10664
 D:\github项目\LearnSail_server\learn_sail\learn_sail\urls.py changed, reloading.
 Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\learn_sail\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\users\urls.py changed, reloading.
+Watching for file changes with StatReloader

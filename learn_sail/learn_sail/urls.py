@@ -23,4 +23,11 @@ from rest_framework import routers
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/users/', include('users.urls')),
+    path('api/courses/', include('courses.urls')),
+    path('api/learning/', include('learning.urls')),
+    path('api/community/', include('community.urls')),
+    path('api/exams/', include('exams.urls')),
+    path('api/homework/', include('homework.urls')),
+    path('api/analytics/', include('analytics.urls')),
 ]
