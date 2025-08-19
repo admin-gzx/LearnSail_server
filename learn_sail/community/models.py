@@ -11,6 +11,8 @@ class Comment(models.Model):
     # 评论信息
     content = models.TextField(verbose_name='评论内容')
     is_anonymous = models.BooleanField(default=False, verbose_name='是否匿名')
+    likes = models.PositiveIntegerField(default=0, verbose_name='点赞数')
+    rating = models.FloatField(blank=True, null=True, verbose_name='评分')
 
     # 关联信息
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name='用户')
@@ -33,6 +35,64 @@ class Comment(models.Model):
         elif self.lesson:
             return f'{self.user.username} - {self.lesson.title}'
         return f'{self.user.username} - 评论 #{self.id}'
+
+
+class Question(models.Model):
+    """
+    问题表
+    存储用户提出的问题
+    """
+    # 问题信息
+    title = models.CharField(max_length=200, verbose_name='问题标题')
+    content = models.TextField(verbose_name='问题内容')
+    views = models.PositiveIntegerField(default=0, verbose_name='浏览量')
+    likes = models.PositiveIntegerField(default=0, verbose_name='点赞数')
+    is_solved = models.BooleanField(default=False, verbose_name='是否解决')
+    tags = models.CharField(max_length=255, blank=True, null=True, verbose_name='标签')
+
+    # 关联信息
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions', verbose_name='提问者')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True, related_name='questions', verbose_name='相关课程')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, blank=True, null=True, related_name='questions', verbose_name='相关课时')
+
+    # 时间信息
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='更新时间')
+
+    class Meta:
+        verbose_name = '问题'
+        verbose_name_plural = '问题管理'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.title
+
+
+class Answer(models.Model):
+    """
+    回答表
+    存储用户对问题的回答
+    """
+    # 回答信息
+    content = models.TextField(verbose_name='回答内容')
+    likes = models.PositiveIntegerField(default=0, verbose_name='点赞数')
+    is_accepted = models.BooleanField(default=False, verbose_name='是否被采纳')
+
+    # 关联信息
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='answers', verbose_name='回答者')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers', verbose_name='问题')
+
+    # 时间信息
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='更新时间')
+
+    class Meta:
+        verbose_name = '回答'
+        verbose_name_plural = '回答管理'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.user.username} - {self.question.title}'
 
 
 class Message(models.Model):

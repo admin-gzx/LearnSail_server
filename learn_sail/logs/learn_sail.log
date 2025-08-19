@@ -12,3 +12,5 @@ Not Found: /@vite/client
 "GET /@vite/client HTTP/1.1" 404 2117
 Watching for file changes with StatReloader
 "GET / HTTP/1.1" 200 10664
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 10664
