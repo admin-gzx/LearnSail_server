@@ -1,6 +1,7 @@
 # 导入必要的模块
 from rest_framework import serializers  # DRF序列化器基类
 from .models import User, UserProfile, Role  # 用户、用户资料和角色模型
+from django.contrib.auth.models import Permission  # 权限模型
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -8,9 +9,15 @@ class RoleSerializer(serializers.ModelSerializer):
     角色序列化器
     用于处理角色模型的数据序列化和反序列化
     """
+    permissions = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Permission.objects.all(),
+        required=False
+    )
+
     class Meta:
         model = Role  # 关联的模型
-        fields = ['id', 'name', 'description', 'created_at', 'updated_at']  # 序列化的字段
+        fields = ['id', 'name', 'description', 'permissions', 'created_at', 'updated_at']  # 序列化的字段
         read_only_fields = ['created_at', 'updated_at']  # 只读字段，不能通过序列化器修改
 
 

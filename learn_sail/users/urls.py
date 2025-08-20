@@ -1,10 +1,13 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, CustomTokenRefreshView
+from .views_roles import RoleViewSet
 
 router = DefaultRouter()
-# 只注册除了register之外的action
+# 注册用户视图集
 router.register(r'users', UserViewSet, basename='user')
+# 注册角色视图集
+router.register(r'roles', RoleViewSet, basename='role')
 
 urlpatterns = [
     # 明确配置register端点，确保应用AllowAny权限

@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
+from django.contrib.auth.models import Permission
+
+
 class Role(models.Model):
     """
     角色表
@@ -9,6 +12,12 @@ class Role(models.Model):
     """
     name = models.CharField(max_length=50, unique=True, verbose_name='角色名称')
     description = models.TextField(blank=True, null=True, verbose_name='角色描述')
+    permissions = models.ManyToManyField(
+        Permission,
+        related_name='roles',
+        blank=True,
+        verbose_name='角色权限'
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='更新时间')
 
