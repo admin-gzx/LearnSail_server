@@ -5,7 +5,7 @@ from rest_framework.decorators import action  # 用于定义自定义动作
 from rest_framework.response import Response  # 响应类
 from rest_framework_simplejwt.tokens import RefreshToken  # JWT刷新令牌
 from rest_framework_simplejwt.views import TokenRefreshView  # JWT刷新视图
-from .models import User, UserProfile  # 用户和用户资料模型
+from .models import User, UserProfile, RoleApplication  # 用户、用户资料和角色申请模型
 from .serializers import (
     UserSerializer, UserDetailSerializer, UserRegistrationSerializer,
     UserLoginSerializer, PasswordChangeSerializer, UserProfileSerializer
@@ -20,6 +20,74 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()  # 数据集为所有用户
     serializer_class = UserSerializer  # 默认序列化器
     permission_classes = [permissions.IsAuthenticated]  # 默认权限为登录用户
+
+    @action(detail=False, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def apply_role(self, request):
+        """
+        提交角色申请接口
+        用户申请成为教师或管理员
+        """
+        from .serializers import RoleApplicationSerializer
+        
+        # 检查目标角色是否存在
+        target_role_id = request.data.get('target_role')
+        if not target_role_id:
+            return Response(
+                {'error': '目标角色ID不能为空'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        try:
+            from .models import Role
+            target_role = Role.objects.get(id=target_role_id)
+        except Role.DoesNotExist:
+            return Response(
+                {'error': '目标角色不存在'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+            
+        # 检查是否已经提交过相同的申请
+        existing_application = RoleApplication.objects.filter(
+            user=request.user,
+            target_role=target_role,
+            status='pending'
+        ).first()
+        
+        if existing_application:
+            return Response(
+                {'error': '您已经提交过该角色的申请，正在等待审批'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        # 创建新的角色申请
+        application_data = {
+            'user': request.user.id,
+            'target_role': target_role_id,
+            'reason': request.data.get('reason', '')
+        }
+        
+        serializer = RoleApplicationSerializer(data=application_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+        
+    @action(detail=False, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def my_role_applications(self, request):
+        """
+        获取当前用户的角色申请列表
+        """
+        from .serializers import RoleApplicationSerializer
+        
+        applications = RoleApplication.objects.filter(user=request.user)
+        serializer = RoleApplicationSerializer(applications, many=True)
+        return Response(serializer.data)
 
 
     # 动态权限控制
@@ -194,6 +262,50 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 
+
+
+class RoleApplicationViewSet(viewsets.ModelViewSet):
+    """
+    角色申请视图集
+    处理角色申请的管理操作
+    """
+    queryset = RoleApplication.objects.all()
+    serializer_class = None
+    permission_classes = [permissions.IsAdminUser]
+    
+    def get_serializer_class(self):
+        """
+        动态选择序列化器
+        - list, retrieve: 使用RoleApplicationSerializer
+        - update, partial_update: 使用RoleApplicationProcessSerializer
+        """
+        from .serializers import RoleApplicationSerializer, RoleApplicationProcessSerializer
+        
+        if self.action in ['update', 'partial_update']:
+            return RoleApplicationProcessSerializer
+        return RoleApplicationSerializer
+    
+    def get_queryset(self):
+        """
+        自定义查询集
+        - 超级管理员可以查看所有申请
+        - 普通管理员只能查看自己处理的申请
+        """
+        user = self.request.user
+        if user.is_superuser:
+            return RoleApplication.objects.all()
+        return RoleApplication.objects.filter(processed_by=user)
+    
+    def update(self, request, *args, **kwargs):
+        """
+        重写更新方法，确保只有超级管理员可以处理申请
+        """
+        if not request.user.is_superuser:
+            return Response(
+                {'error': '只有超级管理员可以处理角色申请'}, 
+                status=status.HTTP_403_FORBIDDEN
+            )
+        return super().update(request, *args, **kwargs)
 
 
 class CustomTokenRefreshView(TokenRefreshView):

@@ -1,6 +1,6 @@
 # 导入必要的模块
 from rest_framework import serializers  # DRF序列化器基类
-from .models import User, UserProfile, Role  # 用户、用户资料和角色模型
+from .models import User, UserProfile, Role, RoleApplication  # 用户、用户资料、角色和角色申请模型
 from django.contrib.auth.models import Permission  # 权限模型
 
 
@@ -177,3 +177,58 @@ class PasswordChangeSerializer(serializers.Serializer):
         if data.get('new_password') != data.get('confirm_password'):
             raise serializers.ValidationError("新密码不匹配")
         return data
+
+
+class RoleApplicationSerializer(serializers.ModelSerializer):
+    """
+    角色申请序列化器
+    用于处理角色申请的数据序列化和反序列化
+    """
+    user = serializers.ReadOnlyField(source='user.username')
+    processed_by = serializers.ReadOnlyField(source='processed_by.username')
+
+    class Meta:
+        model = RoleApplication
+        fields = [
+            'id', 'user', 'target_role', 'status', 'reason',
+            'created_at', 'processed_at', 'processed_by'
+        ]
+        read_only_fields = ['status', 'created_at', 'processed_at', 'processed_by']
+
+
+class RoleApplicationProcessSerializer(serializers.ModelSerializer):
+    """
+    角色申请处理序列化器
+    用于处理管理员审批角色申请的数据验证
+    """
+    class Meta:
+        model = RoleApplication
+        fields = ['status', 'processed_by']
+        read_only_fields = ['processed_by']
+
+    def validate_status(self, value):
+        """
+        验证状态值是否有效
+        """
+        if value not in ['approved', 'rejected']:
+            raise serializers.ValidationError("无效的状态值，必须是'approved'或'rejected'")
+        return value
+
+    def update(self, instance, validated_data):
+        """
+        重写更新方法，处理角色申请审批
+        当申请被批准时，更新用户角色
+        """
+        from django.utils import timezone
+
+        instance.status = validated_data.get('status', instance.status)
+        instance.processed_at = timezone.now()
+        instance.processed_by = self.context['request'].user
+
+        if instance.status == 'approved':
+            # 批准申请，更新用户角色
+            instance.user.role = instance.target_role
+            instance.user.save()
+
+        instance.save()
+        return instance

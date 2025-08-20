@@ -1,8 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import AbstractUser, Permission
 
 
 class Role(models.Model):
@@ -82,3 +79,29 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+
+class RoleApplication(models.Model):
+    """
+    角色申请表
+    存储用户申请成为教师或管理员的信息
+    """
+    STATUS_CHOICES = (
+        ('pending', '待审批'),
+        ('approved', '已批准'),
+        ('rejected', '已拒绝'),
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='role_applications', verbose_name='申请人')
+    target_role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name='applications', verbose_name='目标角色')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', verbose_name='申请状态')
+    reason = models.TextField(verbose_name='申请理由')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='申请时间')
+    processed_at = models.DateTimeField(blank=True, null=True, verbose_name='处理时间')
+    processed_by = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True, related_name='processed_applications', verbose_name='处理人')
+
+    class Meta:
+        verbose_name = '角色申请'
+        verbose_name_plural = '角色申请管理'
+
+    def __str__(self):
+        return f'{self.user.username} 申请成为 {self.target_role.name}'

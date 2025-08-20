@@ -93,9 +93,10 @@
 
 ## 三、功能需求
 ### 1. 用户管理模块
-- **注册登录**：支持手机号、邮箱注册，第三方登录（微信、QQ）
-- **个人中心**：用户信息管理、头像上传、密码修改
-- **角色权限**：基于RBAC模型的权限管理，支持超级管理员、教师、学生角色
+- **注册登录**：支持手机号、邮箱注册，第三方登录（微信、QQ）。登录时可选择学生、教师或管理员角色，注册默认为学生角色。
+- **个人中心**：用户信息管理、头像上传、密码修改、角色申请状态查询
+- **角色权限**：基于RBAC模型的权限管理，支持超级管理员、教师、学生角色。严格控制不同角色的访问权限，学生只能访问学习相关功能，教师可访问课程管理和教学相关功能，管理员可访问系统设置和用户管理功能。
+- **角色申请**：普通用户（学生）可申请成为教师或管理员，需提交申请理由，经超级管理员审批通过后生效。
 
 ### 2. 课程管理模块
 - **课程创建**：教师创建课程，设置课程信息、封面、价格等
@@ -117,7 +118,7 @@
 ### 5. 社区互动模块
 - **课程评论**：学生对课程进行评价和讨论
 - **问答系统**：学生提问，教师和其他学生回答
-- **通知系统**：推送课程更新、作业截止等通知
+- **通知系统**：推送课程更新、作业截止、角色申请状态变更等通知。当用户提交角色申请时，系统会自动发送通知提醒管理员处理。
 
 ### 6. 支付系统模块
 - **在线支付**：支持微信、支付宝等多种支付方式
@@ -128,8 +129,59 @@
 - **学习行为分析**：分析用户学习习惯和行为模式
 - **课程效果分析**：评估课程质量和教学效果
 - **系统性能分析**：监控系统运行状态和性能指标
+- **操作日志记录**：记录系统关键操作日志，包括角色申请审核流程的详细记录，便于追踪和审计。
 
-## 四、数据库设计
+## 四、各模块API接口端点
+### 1. 用户相关API
+- **POST /api/users/register** - 用户注册
+- **POST /api/users/login** - 用户登录
+- **POST /api/users/logout** - 用户登出
+- **GET /api/users/profile** - 获取用户个人资料
+- **PUT /api/users/profile** - 更新用户个人资料
+- **POST /api/users/apply-role** - 提交角色申请
+- **GET /api/users/role-applications** - 获取当前用户的角色申请状态
+- **GET /api/admin/role-applications** - 管理员获取所有角色申请
+- **PUT /api/admin/role-applications/{id}** - 管理员审批角色申请
+
+### 2. 课程相关API
+- **GET /api/courses** - 获取课程列表
+- **GET /api/courses/{id}** - 获取课程详情
+- **POST /api/courses** - 创建课程（教师）
+- **PUT /api/courses/{id}** - 更新课程（教师）
+- **DELETE /api/courses/{id}** - 删除课程（教师）
+
+### 3. 学习相关API
+- **GET /api/courses/{id}/chapters** - 获取课程章节
+- **GET /api/chapters/{id}/lessons** - 获取章节课时
+- **GET /api/lessons/{id}** - 获取课时详情
+- **POST /api/progress** - 更新学习进度
+- **GET /api/progress/{course_id}** - 获取课程学习进度
+
+### 4. 作业考试相关API
+- **GET /api/courses/{id}/assignments** - 获取课程作业
+- **POST /api/assignments/submit** - 提交作业
+- **GET /api/assignments/{id}/submissions** - 获取作业提交
+- **PUT /api/submissions/{id}/grade** - 批改作业（教师）
+- **GET /api/courses/{id}/exams** - 获取考试列表
+- **POST /api/exams** - 创建考试（教师）
+- **POST /api/exams/{id}/submit** - 提交考试（学生）
+- **GET /api/exams/{id}/results** - 查询考试结果
+
+### 5. 社区互动相关API
+- **GET /api/courses/{id}/comments** - 获取课程评论
+- **POST /api/comments** - 发表评论
+- **GET /api/questions** - 获取问题列表
+- **POST /api/questions** - 提问
+- **POST /api/questions/{id}/answers** - 回答问题
+- **GET /api/messages** - 获取私信列表
+- **POST /api/messages** - 发送私信
+
+### 6. 统计分析相关API
+- **GET /api/analytics/learning** - 获取学习统计数据
+- **GET /api/analytics/teaching** - 获取教学统计数据
+- **GET /api/admin/analytics/system** - 获取系统统计数据
+
+## 五、数据库设计
 ### 1. 实体关系图(ER图)
 ```
 +-----------+       +-----------+       +-----------+
@@ -340,7 +392,7 @@
 - 权限控制：基于角色的访问控制(RBAC)
 - API访问限制：基于用户和IP的速率限制
 
-### 4. 各模块API接口设计
+### 4. 各模块API接口端点
 #### 用户相关API
 - **POST /api/v1/users/register** - 用户注册
   - 请求体：{
@@ -449,6 +501,10 @@
       "message": "Password changed successfully"
     }
   - 状态码：200 OK, 400 Bad Request, 401 Unauthorized
+  - POST /api/users/apply-role - 提交角色申请
+- GET /api/users/role-applications - 获取当前用户的角色申请状态
+- GET /api/admin/role-applications - 管理员获取所有角色申请
+- PUT /api/admin/role-applications/{id} - 管理员审批角色申请
 
 #### 课程相关API
 - **GET /api/v1/courses** - 获取课程列表
