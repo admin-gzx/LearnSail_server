@@ -10,8 +10,10 @@ urlpatterns = [
     # 明确配置register端点，确保应用AllowAny权限
     path('register/', UserViewSet.as_view({'post': 'register'}), name='user-register'),
     path('login/', UserViewSet.as_view({'post': 'login'}), name='user-login'),
+    path('logout/', UserViewSet.as_view({'post': 'logout'}), name='user-logout'),
     path('profile/', UserViewSet.as_view({'get': 'profile'}), name='user-profile'),
     path('update-profile/', UserViewSet.as_view({'put': 'update_profile'}), name='update-profile'),
     path('change-password/', UserViewSet.as_view({'post': 'change_password'}), name='change-password'),
     path('refresh/', CustomTokenRefreshView.as_view(), name='token-refresh'),
+    
 ] + router.urls

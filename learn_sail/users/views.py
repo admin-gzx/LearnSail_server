@@ -177,6 +177,21 @@ class UserViewSet(viewsets.ModelViewSet):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # 数据无效返回400
 
+    @action(detail=False, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def logout(self, request):
+        """
+        用户登出接口
+        使当前用户的refresh token失效
+        """
+        try:
+            refresh_token = request.data.get('refresh_token')
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+            return Response({'message': 'Successfully logged out'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 
