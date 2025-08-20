@@ -20,3 +20,138 @@ D:\github项目\LearnSail_server\learn_sail\learn_sail\urls.py changed, reloading.
 Watching for file changes with StatReloader
 D:\github项目\LearnSail_server\learn_sail\users\urls.py changed, reloading.
 Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\learn_sail\settings.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\learning\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\learning\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\serializers.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\courses\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\community\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\analytics\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\homework\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\learning\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\exams\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\exams\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /
+"GET / HTTP/1.1" 404 2849
+D:\github项目\LearnSail_server\learn_sail\learn_sail\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\learn_sail\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /
+"GET / HTTP/1.1" 404 2849
+Not Found: /
+"GET / HTTP/1.1" 404 2849
+Not Found: /
+"GET / HTTP/1.1" 404 2849
+D:\github项目\LearnSail_server\learn_sail\learn_sail\urls.py changed, reloading.
+Watching for file changes with StatReloader
+Not Found: /api/v1/users/register/
+"GET /api/v1/users/register/ HTTP/1.1" 404 2933
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+"GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+"GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3385
+"GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+"GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+"GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 200 3597
+"GET /static/rest_framework/js/csrf.js HTTP/1.1" 200 1719
+"GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 200 13632
+"GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 200 39680
+"GET /static/rest_framework/js/jquery-3.5.1.min.js HTTP/1.1" 200 89476
+"GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+"GET /static/rest_framework/js/default.js HTTP/1.1" 200 1268
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+D:\github项目\LearnSail_server\learn_sail\users\urls.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Watching for file changes with StatReloader
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Not Found: /register/
+"GET /register/ HTTP/1.1" 404 2894
+Not Found: /register/
+"GET /register/ HTTP/1.1" 404 2894
+Not Found: /register
+"GET /register HTTP/1.1" 404 2891
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Watching for file changes with StatReloader
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 48
+"POST /api/users/register/ HTTP/1.1" 201 280
+"POST /api/users/register/ HTTP/1.1" 201 286
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 116
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 59
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 40
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 40
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 40
+"POST /api/users/register/ HTTP/1.1" 201 288
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 116
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 116
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 58
+"POST /api/users/register/ HTTP/1.1" 201 289

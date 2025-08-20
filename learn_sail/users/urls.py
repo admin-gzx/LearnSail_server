@@ -1,14 +1,17 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
-from . import views
+from .views import UserViewSet, CustomTokenRefreshView
 
 router = DefaultRouter()
-router.register(r'profiles', views.UserProfileViewSet, basename='user-profile')
+# 只注册除了register之外的action
+router.register(r'users', UserViewSet, basename='user')
 
 urlpatterns = [
-    path('register/', views.UserRegistrationView.as_view(), name='user-register'),
-    path('login/', views.UserLoginView.as_view(), name='user-login'),
-    path('logout/', views.UserLogoutView.as_view(), name='user-logout'),
-    path('me/', views.UserProfileView.as_view(), name='user-me'),
-    path('change-password/', views.ChangePasswordView.as_view(), name='change-password'),
+    # 明确配置register端点，确保应用AllowAny权限
+    path('register/', UserViewSet.as_view({'post': 'register'}), name='user-register'),
+    path('login/', UserViewSet.as_view({'post': 'login'}), name='user-login'),
+    path('profile/', UserViewSet.as_view({'get': 'profile'}), name='user-profile'),
+    path('update-profile/', UserViewSet.as_view({'put': 'update_profile'}), name='update-profile'),
+    path('change-password/', UserViewSet.as_view({'post': 'change_password'}), name='change-password'),
+    path('refresh/', CustomTokenRefreshView.as_view(), name='token-refresh'),
 ] + router.urls

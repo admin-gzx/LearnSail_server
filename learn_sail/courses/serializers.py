@@ -23,6 +23,20 @@ class VideoSerializer(serializers.ModelSerializer):
                   'size', 'format', 'resolution', 'status', 'created_at', 'updated_at']
         read_only_fields = ['created_at', 'updated_at']
 
+class CourseSerializer(serializers.ModelSerializer):
+    """
+    通用课程序列化器
+    """
+    teacher = UserSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
+
+    class Meta:
+        model = Course
+        fields = ['id', 'title', 'description', 'cover_image_url', 'teacher', 'category', 
+                  'difficulty', 'price', 'duration', 'language', 'status', 
+                  'student_count', 'rating', 'created_at', 'updated_at']
+        read_only_fields = ['created_at', 'updated_at']
+
 
 class LessonSerializer(serializers.ModelSerializer):
     """

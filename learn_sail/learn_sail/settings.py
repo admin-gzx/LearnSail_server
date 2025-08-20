@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # 构建项目内路径，例如: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -150,9 +151,39 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',  # 会话认证
         'rest_framework.authentication.BasicAuthentication',  # 基本认证
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT认证
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',  # 默认分页类
     'PAGE_SIZE': 10  # 每页记录数
+}
+
+# JWT设置
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),  # 访问令牌有效期
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),  # 刷新令牌有效期
+    'ROTATE_REFRESH_TOKENS': False,  # 是否旋转刷新令牌
+    'BLACKLIST_AFTER_ROTATION': False,  # 是否在旋转后加入黑名单
+    'UPDATE_LAST_LOGIN': True,  # 是否更新最后登录时间
+
+    'ALGORITHM': 'HS256',  # 加密算法
+    'SIGNING_KEY': SECRET_KEY,  # 签名密钥
+    'VERIFYING_KEY': None,  # 验证密钥
+    'AUDIENCE': None,  # 受众
+    'ISSUER': None,  # 签发者
+
+    'AUTH_HEADER_TYPES': ('Bearer',),  # 认证头类型
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',  # 认证头名称
+    'USER_ID_FIELD': 'id',  # 用户ID字段
+    'USER_ID_CLAIM': 'user_id',  # 用户ID声明
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),  # 认证令牌类
+    'TOKEN_TYPE_CLAIM': 'token_type',  # 令牌类型声明
+
+    'JTI_CLAIM': 'jti',  # JWT ID声明
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',  # 滑动令牌刷新过期声明
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),  # 滑动令牌有效期
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),  # 滑动令牌刷新有效期
 }
 
 # CORS设置
