@@ -155,3 +155,63 @@ Bad Request: /api/users/register/
 Bad Request: /api/users/register/
 "POST /api/users/register/ HTTP/1.1" 400 58
 "POST /api/users/register/ HTTP/1.1" 201 289
+Watching for file changes with StatReloader
+Forbidden: /api/users/register/
+"GET /api/users/register/ HTTP/1.1" 403 8534
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 116
+"POST /api/users/login/ HTTP/1.1" 200 835
+Unauthorized: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 401 31
+"POST /api/users/login/ HTTP/1.1" 200 835
+Unauthorized: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 401 31
+Unauthorized: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 401 31
+Unauthorized: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 401 31
+Unauthorized: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 401 31
+Bad Request: /api/users/register/
+"POST /api/users/register/ HTTP/1.1" 400 116
+"POST /api/users/register/ HTTP/1.1" 201 292
+"POST /api/users/login/ HTTP/1.1" 200 841
+D:\github项目\LearnSail_server\learn_sail\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 45
+"POST /api/users/login/ HTTP/1.1" 200 835
+Bad Request: /api/users/login/
+"POST /api/users/login/ HTTP/1.1" 400 42
+D:\github项目\LearnSail_server\learn_sail\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+"POST /api/users/login/ HTTP/1.1" 200 835
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 172
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 107
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 176
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 176
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 172
+"POST /api/users/login/ HTTP/1.1" 200 835
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 176
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 176
+"POST /api/users/login/ HTTP/1.1" 200 835
+"GET /api/users/profile/ HTTP/1.1" 200 298
+"GET /api/users/profile/ HTTP/1.1" 200 298
+"GET /api/users/profile/ HTTP/1.1" 200 298
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 172
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 58
+Forbidden: /api/users/profile/
+"GET /api/users/profile/ HTTP/1.1" 403 58
+D:\github项目\LearnSail_server\learn_sail\users\views.py changed, reloading.
+Watching for file changes with StatReloader
+D:\github项目\LearnSail_server\learn_sail\users\serializers.py changed, reloading.
+Watching for file changes with StatReloader
